@@ -1,0 +1,40 @@
+<div class="jumbotron">
+        <h1 class="text-center">Alurapic</h1>
+</div>
+<div class="container">
+    <p *ngIf="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+    <div class="row">
+            <div class="col-md-12">
+                <form>
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                            <!-- routerLink é para que ao clicar esse botao, nao seja recarregada a aplicacao inteira. -->
+                            <a [routerLink]="['/cadastro']" class="btn btn-primary"> 
+                                Nova foto
+                            </a>
+                        </span>
+                        <!-- #textoProcurado é uma declaracao de variavel local do template, que sera usado no
+                        ngfor mais abaixo. A variavel pode ser declarada com var- na frente. Ex var-textoProcurado --> 
+                        <!-- (keyup)="0" é para forçar o recarregamento da página atraves do evento assincrono keyup -->   
+                        <input #textoProcurado (keyup)="0" class="form-control" placeholder="filtrar pelo título da foto">
+                    </div> 
+                </form>
+            </div> <!-- fim col-md-12 -->
+        </div> <!-- fim row -->
+        <br>
+        <div class="row">
+            <!-- O pipe indica uma transformacao que deve ser aplicada ao dado, no momento da exibicao. uppercase
+            é uma operacao nativa do Angular 
+            #painel é uma declaracao local de template. É uma variavel que faz referencia ao proprio painel-->
+            <painel #painel *ngFor="let foto of fotos | filtroPorTitulo:textoProcurado.value" titulo="{{foto.titulo | uppercase}}" class="col-md-2">
+                <!-- A diretiva routerLink mapeia a url de acordo com o q esta configurado em app.routes -->
+                <a [routerLink]="['/cadastro', foto._id]" >
+                    <foto titulo="{{foto.titulo}}" url="{{foto.url}}"></foto>
+                </a>
+                <botao nome="Remover" estilo = "btn-danger btn-block" (acao)="modal.show()" confirmacao="true"  ></botao>
+                <modal #modal frase="Tem certeza que deseja remover esta foto?" (confirma)="remove(foto, painel)"></modal>
+            <!-- event binding do evento click para o metodo remove
+                <button class="btn btn-danger btn-block" (click)='remove(foto)' >Remover</button>  -->
+            </painel>
+    </div><!-- fim row -->
+</div>

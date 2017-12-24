@@ -1,0 +1,8 @@
+<!-- Declarando a propriedade com [] indica para o angular que o valor deve ser buscado no componente -->
+<!-- Como esse relacionamento é unidirecional da propriedade src com url, por exemplo, isso é chamado de 
+One direcional binding 
+Aqui poderia ser usado src="{{url}}"" ao inves de [src]="url". O primeiro é aceito para ser compativel com a nomenclatura
+de angular 1
+-->
+
+<img class="img-responsive center-block efeito" [src]="url" [alt]="titulo">

@@ -1,0 +1,4 @@
+.efeito {
+    /* deslocamento horizontal, deslocamento vertical, largura do esfumacamento, cor da sombra */
+    box-shadow: 2px 2px 15px;
+}
